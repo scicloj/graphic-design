@@ -6,7 +6,7 @@
 (def ^:dynamic *config*
   {:width       256
    :height      256
-   :palette     pal/scicloj-palette
+   :palette     #'pal/scicloj-palette
    :font-family clojure-font
    :attrs       {:fill            "none"
                  :stroke-linecap  "round"
