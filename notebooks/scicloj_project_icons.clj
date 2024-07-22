@@ -117,4 +117,9 @@ config/*config*
 ;; ### Project preferences
 
 ^:kindly/hide-code?
-(view/grid 4 (map view/icon-card projects/projects))
+(view/grid 3 (map view/icon-only projects/projects))
+
+(projects/all)
+
+^:kindly/hide-code?
+(view/icon-card ["Noj" [bac/on-white cen/noj bor/tilted]])

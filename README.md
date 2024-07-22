@@ -28,3 +28,8 @@ SciCloj logo banner - semi-transparent
 ## Original logo
 
 ![SciCloj original logo](https://raw.githubusercontent.com/scicloj/graphic-design/live/classic-designs/scicloj-logo-2018.png)
+
+
+## Project Icons
+
+[Notebook](https://scicloj.github.io/graphic-design/docs/scicloj-project-icons.html)

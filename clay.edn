@@ -1,0 +1,7 @@
+{:remote-repo         {:git-url "https://github.com/scicloj/graphic-design"
+                       :branch  "main"}
+ :quarto              {:title "SciCloj Project Icons"
+                       :format {:html {:theme [:cosmo]}}}
+ :source-path         ["notebooks/scicloj_project_icons.clj"]
+ :base-target-path    "docs"
+ :clean-up-target-dir true}

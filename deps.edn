@@ -1,13 +1,6 @@
-{:deps {dali/dali                 {:mvn/version "1.0.2"}
-        org.scicloj/kindly        {:local/root "../kindly"
-                                   #_#_:mvn/version "4-alpha2-SNAPSHOT"}
-        org.scicloj/kindly-advice {:local/root "../kindly-advice"
-                                   #_#_:mvn/version "1-alpha2-SNAPSHOT"}}
+{:paths ["src" "notebooks"]
+ :deps  {dali/dali                 {:mvn/version "1.0.2"}
+         org.scicloj/clay          {:mvn/version "2-beta11"}}
  :aliases
- {:dev   {:extra-paths ["notebooks"]
-          :extra-deps  {org.scicloj/clay        {:mvn/version "2-alpha39"}
-                        org.scicloj/kind-portal {:local/root "../kind-portal"
-                                                 #_#_:mvn/version "1-alpha4"}}}
-  ;; compile html with `clojure -M:build`
-  :build {:extra-deps {org.scicloj/clay {:mvn/version "2-alpha39"}}
-          :main-opts  ["-m" "scicloj.graphic-design.main"]}}}
+ {;; compile html with `clojure -M:build`
+  :build {:main-opts  ["-m" "scicloj.graphic-design.main"]}}}

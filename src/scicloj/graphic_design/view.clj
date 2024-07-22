@@ -8,16 +8,32 @@
     (into [:div {:style {:display               "grid"
                          :grid-template-columns (str "repeat(" n ", 1fr)")
                          :gap                   10
-                         :align-items     "center"
-                         :justify-content "center"
-                         :text-align "center"}}]
+                         :align-items           "center"
+                         :justify-content       "center"
+                         :text-align            "center"}}]
           (for [column rows]
             [:div column]))))
 
+(defn hex [elements]
+  (let [n (count elements)
+        n2 (int (Math/ceil (Math/sqrt n)))]
+    (kind/hiccup
+      (into [:svg {:xmlns   "http://www.w3.org/2000/svg"
+                   :viewBox (str "-128 -128 " (+ 128 (* 275 n2)) " " (* 256 n2))}]
+            (map-indexed
+              (fn [idx element]
+                (let [col (rem idx n2)
+                      row (quot idx n2)
+                      x (+ (* 275 col) (if (even? row) 128 0))
+                      y (* 230 row)]
+                  [:g {:transform (str "translate(" x "," y ")")}
+                   element])))
+            elements))))
+
 (defn color-card [idx [color description text-color]]
-  [:div {:style {:padding         10
-                 :backgroundColor color
-                 :color           text-color}}
+  [:div {:style {:padding          10
+                 :background-color color
+                 :color            text-color}}
    [:div idx]
    [:div color]
    [:div description]])
@@ -62,6 +78,9 @@
    :background-size     "20px 20px"
    :background-position " 0 0, 0 10px, 10px -10px, -10px 0px"})
 
+(defn icon-only [[style-name components]]
+  [:div (icon components)])
+
 (defn icon-card [[style-name components]]
   (kind/hiccup
     [:div
@@ -71,3 +90,13 @@
 
 (defn component-card [[style-name component]]
   (icon-card [style-name [component]]))
+
+(defn icon-g
+  "Icons consist of components such as background, border, center.
+  Components are either SVG hiccup fragments,
+  or functions that produce SVG hiccup fragments from configuration."
+  [components config attrs]
+  (->> (map #(-> % (deref-var) (apply-fn config)) components)
+       (remove nil?)
+       (into [:g (merge (:attrs config) attrs)])
+       (kind/hiccup)))
