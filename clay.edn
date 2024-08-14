@@ -1,6 +1,7 @@
 {:remote-repo         {:git-url "https://github.com/scicloj/graphic-design"
                        :branch  "main"}
  :quarto              {:title "SciCloj Project Icons"
+                       :favicon "https://raw.githubusercontent.com/scicloj/clay/main/resources/Clay.svg.png"
                        :format {:html {:theme [:cosmo]}}}
  :source-path         ["notebooks/scicloj_project_icons.clj"]
  :base-target-path    "docs"

@@ -1,18 +1,10 @@
 (ns scicloj.graphic-design.main
   (:require [clojure.java.io :as io]
-            [dali.io :as dio]
             [hiccup2.core :as hiccup2]
             [scicloj.clay.v2.api :as clay]
             [scicloj.graphic-design.config :as config]
             [scicloj.graphic-design.projects :as projects]
             [scicloj.graphic-design.view :as view]))
-
-;; TODO: dali.io requires a different top level flag
-(defn render-icon [icon dir filename]
-  (doto icon
-    (dio/render-svg (doto (io/file dir (str filename ".svg"))
-                      (io/make-parents)))
-    (dio/render-png (io/file dir (str filename ".png")))))
 
 (defn render-icons []
   (doseq [[project-name components] projects/projects]

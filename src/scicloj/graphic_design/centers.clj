@@ -1,5 +1,6 @@
 (ns scicloj.graphic-design.centers
-  (:require [scicloj.graphic-design.view :as view]))
+  (:require [clojure.string :as str]
+            [scicloj.graphic-design.view :as view]))
 
 (defn clay [{:keys [palette width]}]
   [:circle {:id   "gray ball of clay"
@@ -17,19 +18,42 @@
 (comment (view/icon [kindly]))
 
 (defn noj [{:keys [palette]}]
-  (let [len 100
+  (let [len 80
         l2 (/ len 2.0)
-        w 12
+        w 8
         -len (- len)
         -l2 (- l2)
         -w (- w)]
-    [:g {:id "north star"
-         :fill (palette 6)}
-     [:path {:d    [:M 0 -len :L w 0 0 len -w 0 :Z]}]
-     [:path {:d    [:M -len 0 :L 0 w len 0 0 -w :Z]}]
-     [:path {:d    [:M -l2 -l2 :L -w 0 l2 l2 w 0 :Z]}]
-     [:path {:d    [:M -l2 l2 :L -w 0 l2 -l2 w 0 :Z]}]]))
+    [:g {:id        "north star"
+         :fill      (palette 6)
+         #_#_:transform "translate(-30,-30) scale(1,1.2)"}
+     [:path {:d (str/join " " ['M 0 -len 'L w 0 0 len -w 0 'Z])}]
+     [:path {:d (str/join " " ['M -len 0 'L 0 w len 0 0 -w 'Z])}]
+     [:path {:d (str/join " " ['M -l2 -l2 'L -w 0 l2 l2 w 0 'Z])}]
+     [:path {:d (str/join " " ['M -l2 l2 'L -w 0 l2 -l2 w 0 'Z])}]]))
 (comment (view/icon [noj]))
+
+(defn happy [{:keys [palette]}]
+  [:g {:id        "smile"
+       :transform "rotate(45)"}
+   [:g {:id   "eyes"
+        :fill (palette 7)}
+    [:circle {:cx -32 :cy -32 :r 16}]
+    [:circle {:cx 32 :cy -32 :r 16}]]
+   [:path {:stroke       (palette 7)
+           :stroke-width 28
+           :fill         "none"
+           :d            (str/join " " ['M -50 32 'C -25 64 25 64 50 32])}]])
+(comment (view/icon [happy]))
+
+(defn peek [{:keys [palette]}]
+  [:g {:id   "ellipsis"
+       :fill (palette 7)}
+   [:circle {:cx -55 :cy 0 :r 24}]
+   [:circle {:cx 0 :cy 0 :r 24}]
+   [:circle {:cx 55 :cy 0 :r 24}]])
+(comment (view/icon [peek]))
+
 
 (defn tmd1 [{:keys [palette]}]
   [:g {:id "grid of data with header"}
@@ -147,30 +171,30 @@
 
 (defn metamorph2 [{:keys [palette font-family]}]
   (let [m "M -55 55 L -55 -55 -18 -55 -18 55 18 55 18 -55 55 -55 55 55"]
-    [:g {:id           "tilde"
-         :stroke       (palette 6)
-         :stroke-width 20
+    [:g {:id             "tilde"
+         :stroke         (palette 6)
+         :stroke-width   20
          :stroke-linecap "square"}
      [:path {:stroke       (palette 7)
              :stroke-width 30
-             :d m}]
+             :d            m}]
      [:path {:d m}]
-     [:path {:stroke (palette 7)
-             :stroke-width 10
+     [:path {:stroke         (palette 7)
+             :stroke-width   10
              :stroke-linecap "round"
-             :d "M -67 65 L -43 65"}]
-     [:path {:stroke (palette 7)
-             :stroke-width 10
+             :d              "M -67 65 L -43 65"}]
+     [:path {:stroke         (palette 7)
+             :stroke-width   10
              :stroke-linecap "round"
-             :d "M 67 65 L 43 65"}]
-     [:path {:stroke (palette 7)
-             :stroke-width 10
+             :d              "M 67 65 L 43 65"}]
+     [:path {:stroke         (palette 7)
+             :stroke-width   10
              :stroke-linecap "round"
-             :d "M -30 -20 L -6 -20"}]
-     [:path {:stroke (palette 7)
-             :stroke-width 10
+             :d              "M -30 -20 L -6 -20"}]
+     [:path {:stroke         (palette 7)
+             :stroke-width   10
              :stroke-linecap "round"
-             :d "M 30 20 L 6 20"}]]))
+             :d              "M 30 20 L 6 20"}]]))
 (comment (view/icon [metamorph2])
          (require '[scicloj.kind-portal.v1.api])
          (scicloj.kind-portal.v1.api/kindly-submit-context
