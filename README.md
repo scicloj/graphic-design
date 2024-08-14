@@ -32,4 +32,4 @@ SciCloj logo banner - semi-transparent
 
 ## Project Icons
 
-[Notebook](https://scicloj.github.io/graphic-design/docs/scicloj-project-icons.html)
+[Notebook](https://scicloj.github.io/graphic-design/docs/scicloj_project_icons.html)
