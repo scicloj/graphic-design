@@ -32,7 +32,7 @@
   (into
     (kind/hiccup
       [:svg {:xmlns   "http://www.w3.org/2000/svg"
-             :viewBox (str "-135 -130 " (* 135 6) " " (+ 30 (* 230 4)))}])
+             :viewBox (str "-135 -130 " (* 135 6) " " (+ 30 (* 230 3)))}])
     (for [[k components] projects
           :let [[x y] (get project-positions k)]
           :when x]
