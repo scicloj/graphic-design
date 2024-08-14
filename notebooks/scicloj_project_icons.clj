@@ -122,4 +122,7 @@ config/*config*
 (projects/all)
 
 ^:kindly/hide-code?
-(view/icon-card ["Noj" [bac/on-white cen/noj bor/tilted]])
+(view/icon-card ["Noj" [bac/on-dark bor/tilted cen/noj]])
+
+^:kindly/hide-code?
+(view/icon-card ["HappyAPI" [bac/on-gold bor/tilted cen/happy]])
