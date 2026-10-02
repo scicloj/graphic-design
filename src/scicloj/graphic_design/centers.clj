@@ -2,6 +2,134 @@
   (:require [clojure.string :as str]
             [scicloj.graphic-design.view :as view]))
 
+(def ^:private graph
+  {:points [[189.26 62.71]   ; 0
+            [129.89 84.34]   ; 1
+            [178.46 116.77]  ; 2
+            [248.63 84.34]   ; 3
+            [97.50 143.79]   ; 4
+            [159.57 173.52]  ; 5
+            [221.64 154.60]  ; 6
+            [113.70 208.66]  ; 7
+            [191.96 211.36]  ; 8
+            [281.02 143.79]  ; 9
+            [264.82 208.66]  ; 10
+            [156.88 257.30]  ; 11
+            [221.64 257.30]] ; 12
+   ;;              0
+
+   ;;        1           3
+   ;;            2
+
+   ;;    4             6          9
+   ;;        5
+
+   ;;     7       8          10
+
+   ;;         11       12
+   :edges [[0 1]
+           [0 2]
+           [1 2]
+           [2 3]
+           [2 5]
+           [3 6]
+           [4 7]
+           [5 4]
+           [5 7]
+           [5 8]
+           [6 8]
+           [6 9]
+           [6 10]
+           [8 12]
+           [8 11]
+           [9 10]
+           [11 12]]})
+
+(defn- line
+  [[[x1 y1] [x2 y2]]]
+  [:line {:x1 x1 :y1 y1
+          :x2 x2 :y2 y2}])
+
+(defn- lines
+  [{:keys [points edges]}]
+  (for [[a b] edges]
+    (line [(nth points a)
+           (nth points b)])))
+
+(defn- circles
+  [points]
+  (for [[x y] points]
+    [:circle {:cx x
+              :cy y
+              :r 20}]))
+
+(defn scicloj [{:keys [palette]}]
+  [:g {:id "scicloj"
+       :transform "scale(0.7) translate(-189.25,-160)"}
+   [:g {:fill "none"
+        :stroke (palette 2)
+        :stroke-width 14
+        :stroke-linecap "round"
+        :stroke-linejoin "round"}
+    (lines graph)]
+   [:g {:fill (palette 1)}
+    (circles (:points graph))]])
+(comment (view/icon [scicloj]))
+
+(defn scicloj-light [{:keys [palette]}]
+  [:g {:id "scicloj"
+       :transform "scale(0.7) translate(-189.25,-160)"}
+   [:g {:fill "none"
+        :stroke (palette 4)
+        :stroke-width 14
+        :stroke-linecap "round"
+        :stroke-linejoin "round"}
+    (lines graph)]
+   [:g {:fill (palette 3)}
+    (circles (:points graph))]])
+(comment (view/icon [scicloj-light]))
+
+(defn scicloj1 [{:keys [palette]}]
+  [:g {:id "scicloj"
+       :transform "scale(0.5) translate(-189.25,-160)"}
+   [:g {:fill "none"
+        :stroke (palette 2)
+        :stroke-width 14
+        :stroke-linecap "round"
+        :stroke-linejoin "round"}
+    (lines graph)]
+   [:g {:fill (palette 1)}
+    (circles (:points graph))]
+   [:g {:id "base"}
+    (for [rect [{:x 157 :y 324 :width 65 :height 27 :rx 11 :fill (palette 9)}
+                {:x 141 :y 286 :width 97 :height 22 :rx 11 :fill (palette 8)}
+                {:x 141 :y 308 :width 97 :height 22 :rx 11 :fill (palette 8)}]]
+      [:rect rect])]])
+(comment (view/icon [scicloj1]))
+
+(defn scicloj2 [{:keys [palette]}]
+  [:g {:id "scicloj"
+       :transform "scale(0.5) translate(-189.25,-160)"}
+   [:circle {:id "globe"
+             :cx 189.25
+             :cy 160
+             :r 130
+             :fill (palette 6)}]
+   [:g {:fill "none"
+        :stroke (palette 2)
+        :stroke-width 14
+        :stroke-linecap "round"
+        :stroke-linejoin "round"}
+    (lines graph)]
+   [:g {:fill (palette 1)}
+    (circles (:points graph))]
+   [:g {:id "base"}
+    (for [rect [{:x 157 :y 324 :width 65 :height 27 :rx 11 :fill (palette 9)}
+                {:x 141 :y 286 :width 97 :height 22 :rx 11 :fill (palette 8)}
+                {:x 141 :y 308 :width 97 :height 22 :rx 11 :fill (palette 8)}]]
+      [:rect rect])]])
+(comment (view/icon [scicloj2]))
+
 (defn clay [{:keys [palette width]}]
   [:circle {:id   "gray ball of clay"
             :fill (palette 9)
@@ -46,14 +174,71 @@
            :d            (str/join " " ['M -50 32 'C -25 64 25 64 50 32])}]])
 (comment (view/icon [happy]))
 
-(defn peek [{:keys [palette]}]
-  [:g {:id   "ellipsis"
-       :fill (palette 7)}
-   [:circle {:cx -55 :cy 0 :r 24}]
-   [:circle {:cx 0 :cy 0 :r 24}]
-   [:circle {:cx 55 :cy 0 :r 24}]])
-(comment (view/icon [peek]))
+(defn plotje [{:keys [palette]}]
+  (let [points  [[4.5 15]
+                 [8.5 10]
+                 [11.5 14]
+                 [13 8.5]
+                 [16.5 5.5]]
+        scale 6
+        pw 20
+        tw2 (- (/ pw 2.0))]
+    [:g {:transform (str "scale(" scale ") "
+                         "translate(" tw2 " " tw2 ")")}
+     [:rect {:x 0 :y 0 :width pw :height pw
+             :fill (palette 6)
+             :stroke (palette 6)
+             :stroke-width 2}]
+     [:path {:d "M0,0V20H20"
+             :stroke (palette 7)
+             :fill "none"
+             :stroke-width 2
+             :stroke-linecap "round"
+             :stroke-linejoin "round"}]
+     [:path {:d (str "M " (str/join " L "
+                                    (map (fn [[x y]]
+                                           (str x " " y))
+                                         points)))
+             :stroke (palette 7)
+             :stroke-width 1.5
+             :fill "none"
+             :stroke-linecap "round"
+             :stroke-linejoin "round"}]
+     [:g {:fill (palette 5)}
+      (for [[x y] points]
+        [:circle {:cx x :cy y :r 2}])]]))
+(comment (view/icon [plotje]))
 
+(defn plotje1 [{:keys [palette]}]
+  (let [points  [[4.5 15]
+                 [8.5 10]
+                 [11.5 14]
+                 [13 8.5]
+                 [16.5 5.5]]
+        scale 6
+        pw 20
+        tw2 (- (/ pw 2.0))]
+    [:g {:transform (str "scale(" scale ") "
+                         "translate(" tw2 " " tw2 ")")}
+     [:path {:d "M0,0V20H20"
+             :stroke (palette 7)
+             :fill "none"
+             :stroke-width 2
+             :stroke-linecap "round"
+             :stroke-linejoin "round"}]
+     [:path {:d (str "M " (str/join " L "
+                                    (map (fn [[x y]]
+                                           (str x " " y))
+                                         points)))
+             :stroke (palette 7)
+             :stroke-width 1.5
+             :fill "none"
+             :stroke-linecap "round"
+             :stroke-linejoin "round"}]
+     [:g {:fill (palette 5)}
+      (for [[x y] points]
+        [:circle {:cx x :cy y :r 2}])]]))
+(comment (view/icon [plotje1]))
 
 (defn tmd1 [{:keys [palette]}]
   [:g {:id "grid of data with header"}
@@ -101,10 +286,10 @@
                    :width  width
                    :height height}]]
           (concat
-            (for [y (range (- h2) (inc h2) (/ height rows))]
-              [:line {:x1 (- w2) :y1 y :x2 w2 :y2 y}])
-            (for [x (range (- w2) (inc w2) (/ width cols))]
-              [:line {:x1 x :y1 (- h2) :x2 x :y2 h2}])))))
+           (for [y (range (- h2) (inc h2) (/ height rows))]
+             [:line {:x1 (- w2) :y1 y :x2 w2 :y2 y}])
+           (for [x (range (- w2) (inc w2) (/ width cols))]
+             [:line {:x1 x :y1 (- h2) :x2 x :y2 h2}])))))
 (comment (view/icon [tmd2]))
 
 (defn tmd3 [{:keys [palette]}]
@@ -123,10 +308,10 @@
                    :width  width
                    :height height}]]
           (concat
-            (for [y (range (- h2) (inc h2) (/ height rows))]
-              [:line {:x1 (- w2) :y1 y :x2 w2 :y2 y}])
-            (for [x (range (- w2) (inc w2) (/ width cols))]
-              [:line {:x1 x :y1 (- h2) :x2 x :y2 h2}])))))
+           (for [y (range (- h2) (inc h2) (/ height rows))]
+             [:line {:x1 (- w2) :y1 y :x2 w2 :y2 y}])
+           (for [x (range (- w2) (inc w2) (/ width cols))]
+             [:line {:x1 x :y1 (- h2) :x2 x :y2 h2}])))))
 (comment (view/icon [tmd3]))
 
 (defn clj-dlj [{:keys [palette]}]
@@ -198,9 +383,9 @@
 (comment (view/icon [metamorph2])
          (require '[scicloj.kind-portal.v1.api])
          (scicloj.kind-portal.v1.api/kindly-submit-context
-           {:value (view/icon [scicloj.graphic-design.backgrounds/on-white
-                               scicloj.graphic-design.borders/octo
-                               metamorph2])}))
+          {:value (view/icon [scicloj.graphic-design.backgrounds/on-white
+                              scicloj.graphic-design.borders/octo
+                              metamorph2])}))
 
 (defn ml [{:keys [palette]}]
   [:g {:id     "robot head"

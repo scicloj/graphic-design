@@ -41,6 +41,8 @@
 (defn fns []
   (-> (ns-interns *ns*)
       (dissoc 'all)
+      (->> (remove (fn [[_ v]] (:private (meta v))))
+           (into {}))
       (update-vals deref)
       (update-keys name)))
 

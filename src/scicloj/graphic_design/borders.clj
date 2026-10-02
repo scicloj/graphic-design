@@ -31,7 +31,41 @@
            :d      "M -128,0 Q -112,0 -112,20 -100,100 -20,112 0,112 0,128"}]
    [:path {:stroke (palette 2)
            :d      "M 128,0 Q 112,0 112,-20 100,-100 20,-112  0,-112 0,-128"}]])
-(comment (view/icon [tilted]))
+(defn tilted [{:keys [palette stroke-width]}]
+  (let [r     120
+        sw    16]  ;; whatever your stroke-width is
+    [:g
+     [:defs
+      [:clipPath {:id "scicloj-tilted-clip"}
+       [:circle {:r (+ r (/ sw 2))}]]]
+     [:g {:clip-path "url(#scicloj-tilted-clip)"
+          :stroke-linecap "butt"
+          :fill "none"
+          #_#_:stroke-width sw}
+      [:path {:stroke (palette 1)
+              :d "M -128,0 Q -112,0 -112,20 -100,100 -20,112 0,112 0,128"}]
+      [:path {:stroke (palette 2)
+              :d "M 128,0 Q 112,0 112,-20 100,-100 20,-112 0,-112 0,-128"}]]]))
+(defn tilted [{:keys [width palette attrs]}]
+  (let [r (/ width 2.0)
+        {:keys [stroke-width]} attrs]
+    [:g
+     [:defs
+      [:clipPath {:id "scicloj-tilted-clip"}
+       [:circle {:r r}]]]
+     [:g {:clip-path "url(#scicloj-tilted-clip)"
+          :fill "none"
+          :stroke-width (* 2 stroke-width)
+          :stroke-linecap "round"}
+      ;; green: left → bottom
+      [:path {:stroke (palette 1)
+              :d (str "M " (- r) ",0 A " r " " r " 0 0 0 0," r)}]
+      ;; blue: right → top
+      [:path {:stroke (palette 2)
+              :d (str "M " r ",0 A " r " " r " 0 0 0 0," (- r))}]]]))
+(comment
+  (view/icon [tilted])
+         )
 
 (defn tilted2 [config]
   [:g {:transform "rotate(90)"}

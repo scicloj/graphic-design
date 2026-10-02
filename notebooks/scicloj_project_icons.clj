@@ -69,21 +69,20 @@ config/*config*
 
 ^:kindly/hide-code?
 (kind/hiccup
-  [:div {:style {:padding    10
-                 :color      (pal/scicloj-palette 0)
-                 :background (pal/scicloj-palette 8)}}
-   [:div {:style {:text-align  "center"
-                  :font-size   "2em"
-                  :font-family (str "font-family: " config/clojure-font)
-                  :background  (pal/scicloj-palette 2)}}
-    "Clojure"]
-   [:br]
-   [:div {:style {
-                  :text-align  "center"
-                  :font-size   "2em"
-                  :font-family (str "font-family: " config/clojure-font)
-                  :background  (pal/scicloj-palette 1)}}
-    "Scicloj"]])
+ [:div {:style {:padding    10
+                :color      (pal/scicloj-palette 0)
+                :background (pal/scicloj-palette 8)}}
+  [:div {:style {:text-align  "center"
+                 :font-size   "2em"
+                 :font-family (str "font-family: " config/clojure-font)
+                 :background  (pal/scicloj-palette 2)}}
+   "Clojure"]
+  [:br]
+  [:div {:style {:text-align  "center"
+                 :font-size   "2em"
+                 :font-family (str "font-family: " config/clojure-font)
+                 :background  (pal/scicloj-palette 1)}}
+   "Scicloj"]])
 
 ;; ### Dimensions
 ;;
@@ -117,12 +116,30 @@ config/*config*
 ;; ### Project preferences
 
 ^:kindly/hide-code?
-(view/grid 3 (map view/icon-only projects/projects))
+(view/grid 11 (map view/icon-only projects/projects))
 
+^:kindly/hide-code?
+(view/grid 11 (map (fn [[_ components]]
+                     [:div {:style {:width "16px" :height "16px"}}
+                      (view/icon components)])
+                   projects/projects))
+
+^:kindly/hide-code?
 (projects/all)
 
 ^:kindly/hide-code?
 (view/icon-card ["Noj" [bac/on-dark bor/tilted cen/noj]])
 
 ^:kindly/hide-code?
-(view/icon-card ["HappyAPI" [bac/on-gold bor/tilted cen/happy]])
+(view/icon-card ["Scicloj" [bac/on-white bor/tilted cen/scicloj]])
+
+^:kindly/hide-code?
+(view/icon-card ["Scicloj" [bac/on-dark bor/tilted cen/scicloj-light]])
+
+^:kindly/hide-code?
+(view/grid 6 (map view/icon-card [["P" [#'bac/on-white #'bor/tilted #'cen/plotje]]
+                                  ["P1" [#'bac/on-white #'bor/tilted #'cen/plotje1]]
+                                  ["S" [#'bac/on-white #'bor/tilted #'cen/scicloj]]
+                                  ["SDL" [#'bac/on-dark #'bor/tilted #'cen/scicloj-light]]
+                                  ["S1" [#'bac/on-white #'bor/tilted #'cen/scicloj1]]
+                                  ["S2" [#'bac/on-white #'bor/tilted #'cen/scicloj2]]]))

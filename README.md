@@ -33,3 +33,5 @@ SciCloj logo banner - semi-transparent
 ## Project Icons
 
 [Notebook](https://scicloj.github.io/graphic-design/docs/scicloj_project_icons.html)
+
+`clojure -M:build` and `icons/png.sh`
