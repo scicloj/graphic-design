@@ -116,10 +116,12 @@ config/*config*
 ;; ### Project preferences
 
 ^:kindly/hide-code?
-(view/grid 11 (map view/icon-only projects/projects))
+(view/grid (count projects/projects)
+           (map view/icon-only projects/projects))
 
 ^:kindly/hide-code?
-(view/grid 11 (map (fn [[_ components]]
+(view/grid (count projects/projects)
+           (map (fn [[_ components]]
                      [:div {:style {:width "16px" :height "16px"}}
                       (view/icon components)])
                    projects/projects))

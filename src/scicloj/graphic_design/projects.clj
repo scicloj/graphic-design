@@ -15,6 +15,7 @@
              "scicloj.ml" [#'bac/on-white #'bor/tilted #'cen/ml]
              "TMD" [#'bac/on-white #'bor/tilted #'cen/tmd2]
              "Noj" [#'bac/on-dark #'bor/tilted #'cen/noj]
+             "clojisr" [#'bac/on-white #'bor/tilted #'cen/clojisr]
              "HappyAPI" [#'bac/on-gold #'bor/tilted #'cen/happy]
              "Plotje" [#'bac/on-white #'bor/tilted #'cen/plotje1]
              "Scicloj" [#'bac/on-dark #'bor/tilted #'cen/scicloj-light]))
